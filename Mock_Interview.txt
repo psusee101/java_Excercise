@@ -1,0 +1,35 @@
+
+1. name ,city, qualification (2 min)
+2. tech stack -> front end => react / bootstrap
+		 back end => java ,spring boot, hibernate ,jpa
+		 db       => sql,mongodb
+                 tools    => jenkins , kubernatee....  (5 minutes)
+		 cloud exp => aws /azure 
+		ec2,s3,lambda expression
+
+3. about ur project => brief  along with tech stack... (3 min)
+
+4. ur role in project =>                               (2 - 3 min)
+
+5. About Agile -> sprint (1 week)
+                  Iteration (2 weeks)
+		  PA plan (one i
+		  internal DSU
+		  stand up
+		  
+ PA(Product Backlog Alignment)
+
+Team Size scrum master(1) , architech(1), lead(1), devlopers(4),testers(2)
+
+Analyze -> development -> code review -> deployment -> Testing(UT) -> approval from client -> prod ->
+dev     -> dev         -> lead or architech->dev    -> dev & testers -> testers            -> dev
+
+1st deploy -> dev 
+2nd deploy -> QA
+3rd deploy -> Prod
+
+
+
+
+
+ 

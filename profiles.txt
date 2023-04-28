@@ -1,0 +1,53 @@
+step1:
+
+2 config files
+
+application-dev.properties
+
+db.url=jdbc:mysql://localhost:3306/mydb_dev
+db.username=devuser
+db.password=devpass
+
+application-prod.proerties
+db.url=jdbc:mysql://localhost:3306/mydb_prod
+db.username=produser
+db.password=prodpass
+
+step-2:
+
+create 'DataSource' bean and use @Profile
+
+@configuration
+public class DataSourceConfig
+{
+
+@Bean
+@Profile("dev")
+public DataSouurce devDataSource()
+{
+DriverManagerDataSource datasource = new  DriverManagerDataSource();
+datasource.setDriverClassName("com.mysql.jdbc.Driver");
+datasource.setUserName("devUser");
+datasource.setPassword("devpass");
+return datasource;
+}
+
+@Bean
+@Profile("prod")
+public DataSouurce devDataSource()
+{
+DriverManagerDataSource datasource = new  DriverManagerDataSource();
+datasource.setDriverClassName("com.mysql.jdbc.Driver");
+datasource.setUserName("prodUser");
+datasource.setPassword("prodpass");
+return datasource;
+}
+
+@SpringBootApplication
+public class MyApp
+{
+p.s.v.m(String args[])
+{
+SpringApplication app = new SpringApplication(MyApp.class);
+app.setDefaultProperties(Collections.singletonMap("spring.profiles.active","dev"));
+app.run(args);

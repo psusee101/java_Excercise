@@ -1,0 +1,61 @@
+import java.io.*;
+
+public class SerializationDemo {
+    public static void main(String[] args) {
+        Employee emp = new Employee("John Doe", "Software Engineer", 10000);
+        String filename = "employee.ser";
+
+        // Serialize the object
+        try {
+            FileOutputStream file = new FileOutputStream(filename);
+            ObjectOutputStream out = new ObjectOutputStream(file);
+            out.writeObject(emp);
+            out.close();
+            file.close();
+            System.out.println("Object has been serialized");
+        } catch (IOException ex) {
+            System.out.println("IOException is caught");
+        }
+
+        // Deserialize the object
+        try {
+            FileInputStream file = new FileInputStream(filename);
+            ObjectInputStream in = new ObjectInputStream(file);
+            Employee empDeserialized = (Employee) in.readObject();
+            in.close();
+            file.close();
+            System.out.println("Object has been deserialized");
+            System.out.println("Name: " + empDeserialized.getName());
+            System.out.println("Title: " + empDeserialized.getTitle());
+            System.out.println("Salary: " + empDeserialized.getSalary());
+        } catch (IOException ex) {
+            System.out.println("IOException is caught");
+        } catch (ClassNotFoundException ex) {
+            System.out.println("ClassNotFoundException is caught");
+        }
+    }
+}
+
+class Employee implements Serializable {
+    private String name;
+    private String title;
+    private int salary;
+
+    public Employee(String name, String title, int salary) {
+        this.name = name;
+        this.title = title;
+        this.salary = salary;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public int getSalary() {
+        return salary;
+    }
+}

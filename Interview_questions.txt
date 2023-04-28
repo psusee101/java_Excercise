@@ -1,0 +1,32 @@
+
+1.how the  microservices are communicating
+
+2. spring boot authentication
+
+3. spring boot annotations
+
+4. @qualifier, @Autowired ,@SpringBootApplication
+
+5. how will u handle the logs in spring boot
+
+6.how can u deploy a SB applicatiion in production env
+
+7. what is lazy loading
+
+8.how can u validate http request
+
+9. joins , union vs union all
+
+10. different types of caching supported in jpa
+
+11. advantages of using jpa over ORM in java applications
+
+12.EC2, S3,RDS
+
+13.spring cloud is a framework for building microservices and distributed systems. it provides set of tools for development,deployement and manage ur application
+
+@EnableDiscoveryCient
+@SpringBootApplication
+
+
+14.spring cloud demo

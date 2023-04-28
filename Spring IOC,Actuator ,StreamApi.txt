@@ -1,0 +1,215 @@
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class Employee {
+    private String name;
+    private int age;
+    private double salary;
+
+    public Employee(String name, int age, double salary) {
+        this.name = name;
+        this.age = age;
+        this.salary = salary;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public double getSalary() {
+        return salary;
+    }
+
+    public static void main(String[] args) {
+        List<Employee> employees = List.of(
+            new Employee("Alice", 25, 50000),
+            new Employee("Bob", 30, 70000),
+            new Employee("Charlie", 35, 60000),
+            new Employee("Dave", 40, 80000)
+        );
+
+        // Sort employees by name
+        List<Employee> sortedByName = employees.stream()
+            .sorted(Comparator.comparing(Employee::getName))
+            .collect(Collectors.toList());
+        System.out.println("Employees sorted by name:");
+        sortedByName.forEach(System.out::println);
+
+        // Sort employees by age
+        List<Employee> sortedByAge = employees.stream()
+            .sorted(Comparator.comparingInt(Employee::getAge))
+            .collect(Collectors.toList());
+        System.out.println("Employees sorted by age:");
+        sortedByAge.forEach(System.out::println);
+
+        // Sort employees by salary
+        List<Employee> sortedBySalary = employees.stream()
+            .sorted(Comparator.comparingDouble(Employee::getSalary))
+            .collect(Collectors.toList());
+        System.out.println("Employees sorted by salary:");
+        sortedBySalary.forEach(System.out::println);
+
+	List<String> highSalaryEmployees = employees.stream()
+            .filter(e -> e.getSalary() > 5000)
+            .map(e -> e.getName() + " (Age: " + e.getAge() + ", Salary: " + e.getSalary() + ")")
+            .collect(Collectors.toList());
+        System.out.println("Employees with a salary greater than 5000:");
+        highSalaryEmployees.forEach(System.out::println);
+    }
+}
+
+
+Spring IoC (Inversion of Control) is a core concept of the Spring framework that provides a way to manage and organize the dependencies of an application. It helps to decouple the application components from each other, making it more modular and easy to maintain.
+
+The Spring IoC container is responsible for managing the lifecycle of application components and injecting their dependencies at runtime. The container uses metadata, such as XML or annotations, to configure the application components and their dependencies.
+
+Here is a simple example of using Spring IoC to manage the dependencies of a class:
+
+public class Car {
+    private Engine engine;
+
+    public Car(Engine engine) {
+        this.engine = engine;
+    }
+
+    public void start() {
+        engine.start();
+        System.out.println("Car started");
+    }
+}
+
+public interface Engine {
+    void start();
+}
+
+public class GasEngine implements Engine {
+    public void start() {
+        System.out.println("Gas engine started");
+    }
+}
+
+public class ElectricEngine implements Engine {
+    public void start() {
+        System.out.println("Electric engine started");
+    }
+}
+In this example, we have a Car class that depends on an Engine to start. The Engine interface is implemented by two classes, GasEngine and ElectricEngine, representing two different types of engines.
+
+To use Spring IoC to manage the dependencies of the Car class, we can define the beans (i.e., the objects managed by the Spring IoC container) and their relationships in a Spring configuration file, such as an XML file:
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="gasEngine" class="com.example.GasEngine" />
+    <bean id="electricEngine" class="com.example.ElectricEngine" />
+
+    <bean id="carWithGasEngine" class="com.example.Car">
+        <constructor-arg ref="gasEngine" />
+    </bean>
+
+    <bean id="carWithElectricEngine" class="com.example.Car">
+        <constructor-arg ref="electricEngine" />
+    </bean>
+
+</beans>
+
+This configuration file defines two Engine beans, gasEngine and electricEngine, and two Car beans, carWithGasEngine and carWithElectricEngine, each with a reference to one of the Engine beans.
+
+To use these beans in our application, we can load the configuration file and retrieve the beans from the Spring IoC container:
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class Main {
+    public static void main(String[] args) {
+        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+
+        Car carWithGasEngine = (Car) context.getBean("carWithGasEngine");
+        carWithGasEngine.start(); // Output: Gas engine started, Car started
+
+        Car carWithElectricEngine = (Car) context.getBean("carWithElectricEngine");
+        carWithElectricEngine.start(); // Output: Electric engine started, Car started
+    }
+}
+
+In this example, we use the ClassPathXmlApplicationContext class to load the Spring configuration file from the classpath. We then retrieve the Car beans from the context using their bean IDs and call the start() method on them. The output shows that the Car objects were successfully created and started with the appropriate Engine dependencies injected by the Spring IoC container.
+
+				Actuator
+
+Spring Boot Actuator is a powerful tool that provides various endpoints to monitor and manage your Spring Boot application. It provides production-ready features such as health checks, metrics, and monitoring.
+
+To demonstrate how to use Spring Boot Actuator, let's create a simple Spring Boot application and add Actuator endpoints to it:
+
+Create a new Spring Boot project using your preferred IDE or command-line tool.
+Add the Actuator dependency to your pom.xml or build.gradle file:
+
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-actuator</artifactId>
+</dependency>
+Open your application.properties file and add the following line to enable all Actuator endpoints:
+
+management.endpoints.web.exposure.include=*
+
+Create a new RestController class and add the following code:
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class HelloWorldController {
+
+    @GetMapping("/hello")
+    public String hello() {
+        return "Hello World!";
+    }
+
+}
+Run your Spring Boot application and navigate to http://localhost:8080/hello. You should see the "Hello World!" message.
+
+Now, navigate to http://localhost:8080/actuator in your browser. You should see a list of all available Actuator endpoints.
+
+For example, navigate to http://localhost:8080/actuator/health to see the health status of your application.
+
+You can also navigate to http://localhost:8080/actuator/metrics to see various metrics such as JVM memory usage and HTTP request count.
+
+Congratulations! You have successfully added Spring Boot Actuator to your application and used it to monitor and manage your application.
+
+
+
+1.aws -> s3
+       EC2
+       Lambda Expression
+
+2.Microservice vs monolathic
+
+3.swapping the 2 numbers without using 3rd variable
+
+4. spring boot security
+
+5. Rest API internal working flow
+
+6. count the each character occurance in the string
+
+7. palindorm
+
+8. count the number of worlds in a string
+
+9.sql query to find the 2nd highest salary 
+
+10. load balance
+
+11. one to many mapping in hibernate
+
+12. waht is ORM & JPA?
+
+13. Spring VS SpringBoot
+
+
